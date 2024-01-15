@@ -15,7 +15,7 @@ export default function Item({ ...item }: ITask) {
 			{item.completed && (
 				<span className={style.concluido} aria-label='Tarefa Completada'></span>
 			)}
-			<span className={style.hoverImage} onClick={() => removeTask(item)}></span>
+			<span className={style.hoverImage} onClick={(e) => {e.stopPropagation(); removeTask(item)}}></span>
 		</li>
 	);
 }

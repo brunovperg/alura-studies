@@ -23,10 +23,11 @@
 		.hoverImage {
 			display: block;
 			cursor: pointer;
+			z-index: 1;
 		}
-    .concluido {
-      display: none;
-    }
+		.concluido {
+			display: none;
+		}
 	}
 
 	h3 {

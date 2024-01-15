@@ -15,6 +15,8 @@ export default function useTasks() {
 		setTime,
 		stopWatchTime,
 		setStopWatchTime,
+		value,
+		setValue,
 	} = useContext(TasksContext)!;
 
 	const selectTask = useCallback(
@@ -82,6 +84,11 @@ export default function useTasks() {
 	}, [tasks]);
 
 	function removeTask(item: ITask) {
+		if (item.id === selectedTask?.id) {
+			setSelectedTask(undefined);
+			setStopWatchTime(0);
+		}
+		setStopWatchTime((e) => e);
 		setTasks((oldTasks) => oldTasks.filter((task) => task.id !== item.id));
 	}
 
@@ -97,5 +104,7 @@ export default function useTasks() {
 		setStopWatchTime,
 		startStopwatch,
 		removeTask,
+		value,
+		setValue,
 	};
 }
