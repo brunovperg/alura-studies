@@ -4,7 +4,7 @@ import { TasksContext } from '../context/TasksContext';
 import { formatTime } from '../common/utils/time';
 
 export default function useTasks() {
-	const timeoutId = useRef<NodeJS.Timeout | null>(null);
+	const timeoutId = useRef<number | null>(null);
 
 	const {
 		tasks,
@@ -39,17 +39,17 @@ export default function useTasks() {
 	const startStopwatch = useCallback(() => {
 		if (selectedTask && stopWatchTime > 0) {
 			if (timeoutId.current) {
-				clearInterval(timeoutId.current);
+				clearInterval(timeoutId.current as number);
 			}
-			timeoutId.current = setInterval(() => {
+			(timeoutId.current) = setInterval(() => {
 				setStopWatchTime((prevTime) => {
 					if (prevTime > 0) {
 						return prevTime - 1;
 					}
-					clearInterval(timeoutId.current!);
+					clearInterval(timeoutId.current! as number);
 					return prevTime;
 				});
-			}, 1000);
+			}, 1000) as unknown as number;
 		}
 	}, [selectedTask, stopWatchTime, setStopWatchTime]);
 
