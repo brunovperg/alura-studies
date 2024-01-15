@@ -2,7 +2,6 @@ import { createContext } from 'react';
 import { ITask } from '../types/ITask';
 import { Dispatch, SetStateAction, useState } from 'react';
 
-
 interface TasksContextType {
 	tasks: ITask[];
 	setTasks: Dispatch<SetStateAction<ITask[]>>;
@@ -26,7 +25,11 @@ interface TasksProviderProps {
 2;
 
 export function TasksProvider({ children }: TasksProviderProps) {
-	const [tasks, setTasks] = useState<ITask[]>([]);
+	const getInitialTasks = () => {
+		const savedTasks = localStorage.getItem('tasks');
+		return savedTasks ? JSON.parse(savedTasks) : [];
+	};
+	const [tasks, setTasks] = useState<ITask[]>(getInitialTasks);
 	const [selectedTask, setSelectedTask] = useState<ITask>();
 	const [time, setTime] = useState<string>('01:00:00');
 	const [stopWatchTime, setStopWatchTime] = useState<number>(0);

@@ -3,7 +3,7 @@ import useTasks from '../../../hooks/useTasks';
 import style from './Item.module.scss';
 
 export default function Item({ ...item }: ITask) {
-	const { selectTask } = useTasks();
+	const { selectTask, removeTask } = useTasks();
 	return (
 		<li
 			className={`${style.item} ${item.selected ? style.itemSelecionado : ''} ${
@@ -15,6 +15,7 @@ export default function Item({ ...item }: ITask) {
 			{item.completed && (
 				<span className={style.concluido} aria-label='Tarefa Completada'></span>
 			)}
+			<span className={style.hoverImage} onClick={() => removeTask(item)}></span>
 		</li>
 	);
 }

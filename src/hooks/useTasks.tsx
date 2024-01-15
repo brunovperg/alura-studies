@@ -43,10 +43,9 @@ export default function useTasks() {
 				setStopWatchTime((prevTime) => {
 					if (prevTime > 0) {
 						return prevTime - 1;
-					} else {
-						clearInterval(timeoutId.current!);
-						return prevTime;
 					}
+					clearInterval(timeoutId.current!);
+					return prevTime;
 				});
 			}, 1000);
 		}
@@ -77,6 +76,15 @@ export default function useTasks() {
 		}
 	}, [selectedTask]);
 
+	// Save tasks to localStorage whenever they change
+	useEffect(() => {
+		localStorage.setItem('tasks', JSON.stringify(tasks));
+	}, [tasks]);
+
+	function removeTask(item: ITask) {
+		setTasks((oldTasks) => oldTasks.filter((task) => task.id !== item.id));
+	}
+
 	return {
 		tasks,
 		setTasks,
@@ -88,5 +96,6 @@ export default function useTasks() {
 		stopWatchTime,
 		setStopWatchTime,
 		startStopwatch,
+		removeTask,
 	};
 }

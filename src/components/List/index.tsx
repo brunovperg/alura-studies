@@ -10,7 +10,9 @@ export default function List() {
 			<h2>Estudos do Dia</h2>
 			<ul>
 				{tasks.map((item) => (
-					<Item key={item.id} {...item} />
+					<div className={style.itemWrapper} key={item.id}>
+						<Item {...item} />
+					</div>
 				))}
 			</ul>
 		</aside>
